@@ -29,7 +29,7 @@ class LobbyComplement extends PluginBase implements Listener {
                 if ($event->getCause() === EntityDamageEvent::CAUSE_SUFFOCATION) {
                     if ($event->getCause() === EntityDamageEvent::CAUSE_FIRE) {
                         if ($event->getCause() === EntityDamageEvent::CAUSE_ENTITY_ATTACK) {
-                            $event->cancel(); // default is tru
+                            $event->cancel(); 
                         }
                     }
                 }
