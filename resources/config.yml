@@ -1,4 +1,6 @@
 
-server-name: GreekUHC
+# Server
+server-name: YourServer
 
-discord: discord.gg/greekmc
+# Discord
+discord: discord.gg/YourLink

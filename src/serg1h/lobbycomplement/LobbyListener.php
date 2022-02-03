@@ -1,8 +1,15 @@
 <?php
+/*
+* Copyright (C) Serg1h - All Rights Reserved
+* Unauthorized copying of this file, via any medium is strictly prohibited
+* Proprietary and confidential
+*/
+
+declare(strict_types=1);
+
 
 namespace serg1h\lobbycomplement;
 
-use pocketmine\block\Water;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\entity\EntityDamageEvent;
