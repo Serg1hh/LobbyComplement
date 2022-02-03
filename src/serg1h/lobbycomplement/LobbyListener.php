@@ -2,11 +2,13 @@
 
 namespace serg1h\lobbycomplement;
 
+use pocketmine\block\Water;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerExhaustEvent;
+use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\player\Player;
@@ -15,14 +17,16 @@ use pocketmine\utils\TextFormat;
 
 class LobbyListener implements Listener {
 
+
     public function onJoin(PlayerJoinEvent $event): void {
+        $config = LobbyComplement::getInstance()->getConfig();
         $player = $event->getPlayer();
         $player->teleport(Server::getInstance()->getWorldManager()->getDefaultWorld()->getSafeSpawn());
 
-        $event->setJoinMessage(TextFormat::colorize("&2[&r&+&2]" . $player->getName()));
+        $event->setJoinMessage(TextFormat::colorize("&2[&r+&2]&r " . $player->getName()));
         $player->sendMessage("-----------------------------------------------");
-        $player->sendMessage("Welcome to " . TextFormat::DARK_PURPLE . "server");
-        $player->sendMessage("Discord: " . TextFormat::BLUE . "discord.gg/YourServer");
+        $player->sendMessage("Welcome to " . TextFormat::DARK_PURPLE . $config->get('server-name'));
+        $player->sendMessage("Discord: " . TextFormat::BLUE . $config->get('discord'));
         $player->sendMessage("-----------------------------------------------");
     }
 
@@ -51,7 +55,13 @@ class LobbyListener implements Listener {
     }
 
     public function onQuit(PlayerQuitEvent $event) {
-        $event->setQuitMessage(TextFormat::colorize("&4[&r-&4]" . $event->getPlayer()->getName()));
+        $event->setQuitMessage(TextFormat::colorize("&4[&r-&4]&r " . $event->getPlayer()->getName()));
+    }
+
+    public function onInteract(PlayerInteractEvent $event) {
+        if (!$event->getPlayer()->hasPermission("place.block")) {
+            $event->cancel();
+        }
     }
 
 }

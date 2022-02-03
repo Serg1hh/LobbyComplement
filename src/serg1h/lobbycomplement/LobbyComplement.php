@@ -9,9 +9,14 @@ use pocketmine\permission\PermissionManager;
 use pocketmine\plugin\PluginBase;
 use serg1h\lobbycomplement\commands\FlyCommand;
 use serg1h\lobbycomplement\commands\SpawnCommand;
-use serg1h\lobbycomplement\LobbyListener;
+use pocketmine\utils\SingletonTrait;
 
-class LobbyComplement extends PluginBase implements Listener {
+class LobbyComplement extends PluginBase {
+    use SingletonTrait;
+
+    protected function onLoad(): void {
+        self::setInstance($this);
+    }
 
     protected function onEnable(): void {
         $server = $this->getServer();
