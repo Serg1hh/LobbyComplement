@@ -30,7 +30,7 @@ class LobbyListener implements Listener {
         $player = $event->getPlayer();
         $player->teleport(Server::getInstance()->getWorldManager()->getDefaultWorld()->getSafeSpawn());
 
-        $event->setJoinMessage(TextFormat::colorize("&2[&r+&2]&r " . $player->getName()));
+        $event->setJoinMessage(TextFormat::colorize($config->get('join-message') . $player->getName()));
         $player->sendMessage("-----------------------------------------------");
         $player->sendMessage("Welcome to " . TextFormat::DARK_PURPLE . $config->get('server-name'));
         $player->sendMessage("Discord: " . TextFormat::BLUE . $config->get('discord'));
@@ -43,7 +43,7 @@ class LobbyListener implements Listener {
 
     public function onDamage(EntityDamageEvent $event): void {
         $entity = $event->getEntity();
-        if($entity instanceof Player and $event->getCause() === EntityDamageEvent::CAUSE_VOID) {
+        if ($entity instanceof Player and $event->getCause() === EntityDamageEvent::CAUSE_VOID) {
             $entity->teleport(Server::getInstance()->getWorldManager()->getDefaultWorld()->getSafeSpawn());
         }
         $event->cancel();
@@ -62,7 +62,8 @@ class LobbyListener implements Listener {
     }
 
     public function onQuit(PlayerQuitEvent $event) {
-        $event->setQuitMessage(TextFormat::colorize("&4[&r-&4]&r " . $event->getPlayer()->getName()));
+        $config = LobbyComplement::getInstance()->getConfig();
+        $event->setQuitMessage(TextFormat::colorize($config->get('quit-message') . $event->getPlayer()->getName()));
     }
 
     public function onInteract(PlayerInteractEvent $event) {
