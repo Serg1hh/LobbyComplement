@@ -5,7 +5,4 @@ server-name: YourServer
 # Discord
 discord: discord.gg/YourLink
 
-# Quit message
-quit-message: "&4[&r-&4]&r "
 
-join-message: "&2[&r+&2]&r "
