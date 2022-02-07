@@ -21,4 +21,4 @@ Welcome message (configurable on config.yml. Discord and Server name.)
 join message ([+] & [-] with colors)
 
 FlyCommand (A command to allow all players to flight with '/fly')
-SpawnCommand (A command to teleport the player to the default spawnn world)
+SpawnCommand (A command to teleport the player to the default spawn world)
