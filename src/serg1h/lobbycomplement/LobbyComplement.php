@@ -15,6 +15,7 @@ use pocketmine\permission\DefaultPermissions;
 use pocketmine\permission\Permission;
 use pocketmine\permission\PermissionManager;
 use pocketmine\plugin\PluginBase;
+use serg1h\lobbycomplement\commands\DiscordCommand;
 use serg1h\lobbycomplement\commands\FlyCommand;
 use serg1h\lobbycomplement\commands\SpawnCommand;
 use pocketmine\utils\SingletonTrait;
@@ -34,7 +35,8 @@ class LobbyComplement extends PluginBase {
         $this->registerPermission("place.block");
 
         $server->getCommandMap()->register("fly", new FlyCommand());
-        $server->getCommandMap()->register("fly", new SpawnCommand());
+        $server->getCommandMap()->register("spawn", new SpawnCommand());
+        $server->getCommandMap()->register("discord", new DiscordCommand());
         $this->registerListener(new LobbyListener());
 
         $server->getLogger()->info("LobbyComplement has been enabled");
