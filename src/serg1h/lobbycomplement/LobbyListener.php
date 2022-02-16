@@ -35,6 +35,7 @@ class LobbyListener implements Listener {
         $player->sendMessage("Welcome to " . TextFormat::DARK_PURPLE . $config->get('server-name'));
         $player->sendMessage("Discord: " . TextFormat::BLUE . $config->get('discord'));
         $player->sendMessage("-----------------------------------------------");
+
     }
 
     public function onExhaust(PlayerExhaustEvent $event): void {
