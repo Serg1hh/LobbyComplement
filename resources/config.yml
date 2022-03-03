@@ -1,8 +1,20 @@
 
 # Server
-server-name: YourServer
+server-name: "§6§lServer"
 
 # Discord
-discord: discord.gg/YourLink
+discord: "discord.gg/YourLink"
+
+scoreboard-title: "§6§lServer §r§7| §fLobby-1"
+scoreboard-lines:
+  - '&7-------------------'
+  - ' &6Online:'
+  - ' §r§f{players_count}'
+  - '&7&r&b'
+  - ' &6Nick:'
+  - ' §r§f{player_nick}'
+  - '&7&r'
+  - ' &7pocketmine-plugin'
+  - '&7-------------------&r'
 
 

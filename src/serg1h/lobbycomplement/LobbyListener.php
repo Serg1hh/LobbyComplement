@@ -18,9 +18,13 @@ use pocketmine\event\player\PlayerExhaustEvent;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\player\GameMode;
 use pocketmine\player\Player;
 use pocketmine\Server;
 use pocketmine\utils\TextFormat;
+use serg1h\lobbycomplement\item\EnderBuffItem;
+use serg1h\lobbycomplement\item\ServerItem;
+use serg1h\lobbycomplement\session\SessionFactory;
 
 class LobbyListener implements Listener {
 
@@ -29,13 +33,19 @@ class LobbyListener implements Listener {
         $config = LobbyComplement::getInstance()->getConfig();
         $player = $event->getPlayer();
         $player->teleport(Server::getInstance()->getWorldManager()->getDefaultWorld()->getSafeSpawn());
-
-        $event->setJoinMessage(TextFormat::colorize("&2[&r+&2]&r" . $player->getName()));
+        $session = SessionFactory::getSession($player = $event->getPlayer());
+        $session->initScoreboard();
+        $player->getArmorInventory()->clearAll();
+        $event->setJoinMessage(TextFormat::colorize("&2[&r+&2]&r " . $player->getName()));
         $player->sendMessage("-----------------------------------------------");
         $player->sendMessage("Welcome to " . TextFormat::DARK_PURPLE . $config->get('server-name'));
         $player->sendMessage("Discord: " . TextFormat::BLUE . $config->get('discord'));
         $player->sendMessage("-----------------------------------------------");
-
+        $player->sendTitle(TextFormat::colorize($config->get("server-name")));
+        $player->sendSubTitle("§r§fWelcome §r§7" . $player->getName());
+        $player->setGamemode(GameMode::ADVENTURE());
+        $player->getInventory()->setItem(0, new EnderBuffItem());
+        $player->getInventory()->setItem(4, new ServerItem());
     }
 
     public function onExhaust(PlayerExhaustEvent $event): void {
@@ -44,7 +54,7 @@ class LobbyListener implements Listener {
 
     public function onDamage(EntityDamageEvent $event): void {
         $entity = $event->getEntity();
-        if ($entity instanceof Player and $event->getCause() === EntityDamageEvent::CAUSE_VOID) {
+        if ($entity instanceof Player && $event->getCause() === EntityDamageEvent::CAUSE_VOID) {
             $entity->teleport(Server::getInstance()->getWorldManager()->getDefaultWorld()->getSafeSpawn());
         }
         $event->cancel();
